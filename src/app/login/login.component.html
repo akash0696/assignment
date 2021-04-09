@@ -1,0 +1,17 @@
+
+<form [formGroup]="form">
+  <fieldset>
+      <strong>Login</strong>
+      <div class="form-field">
+          <input name="email" placeholder="email" formControlName="email">
+      </div>
+      <div class="form-field">
+          <input name="password" placeholder="password" formControlName="password"
+                 type="password">
+      </div>
+  </fieldset>
+  <div class="form-buttons">
+      <button class="button button-primary"
+              >Login</button>
+  </div>
+</form>
