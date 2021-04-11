@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { MoviesComponent } from './movies/movies.component';
+import { WpHttpInterceptor } from './services/http-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MoviesComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,12 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: WpHttpInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
