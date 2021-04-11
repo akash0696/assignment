@@ -1,3 +1,47 @@
-<div *ngFor="let movie of moviesDetail.results ">
-  <div>{{movie.title}}</div>
+<div *ngIf="movieFetched">
+  <button class="btn btn-primary" (click)='logout()'>Logout</button>
+<div class="container bg-secondary">
+  <div class="row text-center row-margin">
+
+      <div class="col-xl-4 col-sm-3 card-margin mb-4 mt-4 card" *ngFor="let movie of moviesDetail" data-toggle="modal" data-target="#DetailedCard">
+          <div class="card" type="button"  (click)="movieInfo(movie)">
+            <img class="card-img-top" src="https://ui-avatars.com/api/?rounded=true&name={{movie.title}}" alt="" style="width:100%">
+            <div class="card-body">
+              <h3 class="mb-0 card-title text-secondary">{{movie.title}}</h3>
+              <p class="card-text text-info">{{(movie.description.length>25)? (movie.description|slice:0:25)+'...':(movie.description)}}</p>
+              <h6 class="card-text text-success">{{movie.genres}}</h6>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="DetailedCard" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-width">
+      <div class="modal-header img-fluid" style="width: 500px;">
+        <img class="modal-image" src="https://ui-avatars.com/api/?name={{movieTitle}}" alt="" style="width:100%">
+      </div>
+      <div class="modal-body" >
+        <h3 class="mb-0 modal-title text-secondary">{{movieTitle}}</h3>
+        <p class="modal-text text-info">{{movieDesc}}</p>
+        <h6 class="modal-text text-success">{{movieGenre}}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+<nav aria-label="Page navigation example" *ngIf="moviesDetail">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" *ngIf="prvs" (click)='previousPg()'>Previous</a></li>
+    <li class="page-item"><a class="page-link" *ngIf="nextPage" (click)='nextPg()'>next</a></li>
+  </ul>
+</nav>
+</div>
+<div *ngIf="!movieFetched">
+  <button class="btn btn-primary" (click)='refreshData()'>Refresh</button>
 </div>
